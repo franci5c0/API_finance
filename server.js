@@ -1,20 +1,22 @@
 //importar as bibliotecas 
 
-const express = require('express'); // Importa o framework Express 
 const dotenv = require('dotenv'); // Importa o pacote dotenv para gerenciar variáveis de ambiente 
-const cors = require('cors'); // Importa o pacote cors para permi r requisições de diferentes origens 
-const bodyParser = require('body-parser'); // Importa o pacote body-parser para analisar o corpo das requisições HTTP
-
 
 //configurar as variáveis de ambiente 
 
 dotenv.config(); // Carrega as variáveis definidas no arquivo .env para process.env
 
 
+const express = require('express'); // Importa o framework Express 
+const cors = require('cors'); // Importa o pacote cors para permi r requisições de diferentes origens 
+const bodyParser = require('body-parser'); // Importa o pacote body-parser para analisar o corpo das requisições HTTP
+
+const db = require('./config/db'); //importar a conexão com o banco de dados
+
+
 //Inicializa uma nova aplicação Express 
 
 const app = express(); // Inicializa uma nova aplicação Express
-
 
 //Configura o CORS e o body-parser 
 
@@ -27,7 +29,6 @@ app.use(bodyParser.json()); // Configura o body-parser para analisar requisiçõ
 app.get('/', (req, res) => { 
     res.send('Servidor está rodando'); // Define uma rota inicial para testar o servidor 
     });
-
 
     // Configura o servidor para escutar em uma porta específica 
 
