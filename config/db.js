@@ -5,10 +5,10 @@ const mysql = require('mysql2'); //importa o pacote mysql2 para conectar ao banc
 
 //exibe as variáveis de ambiente carregadas para teste
 
-//console.log('DB_HOST:', process.env.DB_HOST);
-//console.log('DB_USER:', process.env.DB_USER);
-//console.log('DB_PASS:', process.env.DB_PASS);
-//console.log('DB_NAME:', process.env.DB_NAME);
+console.log('DB_HOST:', process.env.DB_HOST);
+console.log('DB_USER:', process.env.DB_USER);
+console.log('DB_PASS:', process.env.DB_PASS);
+console.log('DB_NAME:', process.env.DB_NAME);
 
 //depois pode apagar ou comentar
 
@@ -31,4 +31,3 @@ console.log(`conectado ao banco de dados ${process.env.DB_NAME}`); //exibe a men
 });
 
 module.exports=db; //exporta a conexão para ser usada em outros arquivos
-
