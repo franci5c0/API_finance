@@ -26,6 +26,8 @@ const addTransaction = (req, res) => {
                 res.status(500).send('Erro ao adicionar transação');
                 return;
             }
+
+            
             res.status(201).send('transação adicionada com sucesso');
         }
     );
@@ -41,7 +43,7 @@ db.query(
 [date, amount, description, category, account, user_id, id],
 (err, results) => {
     if(err) {
-        console.error('erro ao adicionar transação', err);
+        console.error('erro ao atualizar transação', err);
         res.status(500).send('erro ao adicionar transação');
         return;
 }
@@ -53,12 +55,47 @@ res.send('transação atualizada com sucesso');
 
 //função para atualizar uma transação existente (substituição parcial)
 const updateTransactionPatch = (req, res) => {
-    const{id} = req.params;
+const{id} = req.params;
+const fields = req.body;
+const query = [];
+const values = [];
 
-
-
-
+for(const[key,value] of Object.entries(fields)) {
+query.push(`${key}= ?`);
+values.push(value);
 }
+
+values.push(id);
+
+db.query(
+`UPDATE transactions SET ${query.join(',')} WHERE id = ?`,
+values,
+(err, results) => {
+    if(err) {
+        console.error('erro ao atualizar transação', err);
+        res.status(500).send('erro ao adicionar transação');
+        return;
+}
+res.send('transação atualizada com sucesso');
+}
+);
+};
+
+
+//função para deletar uma transação
+const deleteTransaction = (req, res) => {
+const {id} = req.params;
+db.query('DELETE FROM transactions WHERE id = ?', [id],
+    (err, results) => {
+        if(err) {
+            console.error('erro ao deletar transação', err);
+            res.status(500).send('erro ao adicionar transação');
+            return;
+    }
+res.send('transação deletada com sucesso');
+}
+);
+};
 
 
 
@@ -66,5 +103,6 @@ module.exports = {
     getAllTransactions,
     addTransaction,
     updateTransactionPut,
-    updateTransactionPatch
+    updateTransactionPatch,
+    deleteTransaction
 };
